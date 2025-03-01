@@ -3,6 +3,22 @@
 Django project with Stripe api integration with the ability to pay for purchases. You can get tokens for Stripe api on the website [Stripe](https://docs.stripe.com/)
 
 
+## Admin:
+  http://82.148.29.108/admin
+  user: admin
+  password: admin
+
+  The application runs on a server in docker containers. Static is distributed using Nginx.
+
+
+
+## Download
+ Clone this repository:
+   ```
+   git clone git@github.com:JacobKleim/Stripe-API-integration.git
+   
+   ```
+
 ## Env
    ### Create .env file in the base directory:
    ```
