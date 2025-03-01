@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ item.name }}</title>
+</head>
+<body>
+    <h1>{{ item.name }}</h1>
+    <p>{{ item.description }}</p>
+    <p>Price: ${{ item.price }}</p>
+
+    <form id="buyForm">
+        <button type="submit">Buy</button>
+    </form>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe('{{ stripe_test_public_key }}');
+
+        document.getElementById('buyForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            fetch('/buy/{{ item.id }}/', {
+                method: 'GET',
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (session) {
+                stripe.redirectToCheckout({ sessionId: session.id });
+            })
+        });
+    </script>
+</body>
+</html>
+
+
+
+

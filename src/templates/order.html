@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order {{ order.id }}</title>
+</head>
+<body>
+    <h1>Order #{{ order.id }}</h1>
+
+    <h2>Items in this Order:</h2>
+    <ul>
+        {% for item in order.items.all %}
+            <li>
+                <strong>{{ item.name }}</strong><br>
+                Description: {{ item.description }}<br>
+                Price: ${{ item.price }}<br>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Total Order Price: ${{ order.calculate_total_price }}</h3>
+
+    <form id="buyForm">
+        <button type="submit">Proceed to Payment</button>
+    </form>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe('{{ stripe_test_public_key }}');
+
+        document.getElementById('buyForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            fetch('/buy_order/{{ order.id }}/', {
+                method: 'GET',
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (session) {
+                stripe.redirectToCheckout({ sessionId: session.id });
+            })
+        });
+    </script>
+</body>
+</html>
