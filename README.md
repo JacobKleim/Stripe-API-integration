@@ -18,8 +18,9 @@ Django project with Stripe api integration with the ability to pay for purchases
 
   The application runs on a server in docker containers. Static is distributed using Nginx.
 
-  Testing of the purchase of item:   
-  http://82.148.29.108/item/1/
+  Testing of the purchase of item: 
+  http://82.148.29.108/item/1/   
+
   Testing the purchase of items in an order:   
   http://82.148.29.108/order_items/1/
 
